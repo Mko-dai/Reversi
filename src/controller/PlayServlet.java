@@ -29,7 +29,7 @@ public class PlayServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession(true);
 
 		String square[][];
 		square = new String[8][8];

@@ -28,4 +28,14 @@
     <filter-name>EncodeFilter</filter-name>
     <url-pattern>/EncodeFilter</url-pattern>
   </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>example</display-name>
+    <servlet-name>example</servlet-name>
+    <servlet-class>controller.example</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>example</servlet-name>
+    <url-pattern>/example</url-pattern>
+  </servlet-mapping>
 </web-app>
