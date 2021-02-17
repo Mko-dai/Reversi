@@ -1,0 +1,201 @@
+
+* {
+	box-sizing: border-box;
+	text-decoration: none;
+}
+
+a {
+	text-decoration: none;
+	color:black;
+}
+
+h1   {
+	text-align:center;
+}
+
+
+.logintextform {
+	margin: 0 auto;
+    width:600px;
+    text-align:right;
+    padding: 0px 80px 0px 0px;
+}
+
+#loginbutton {
+
+	height:26px;
+
+
+}
+
+#loginbutton5 {
+	height:26px;
+	left:100px;
+}
+
+#loginbutton2 {
+    height:26px;
+    position:relative;
+	left:120px;
+	top:30px;
+}
+
+
+.logintextform input {
+
+	margin:10px;
+}
+
+.error p {
+	text-align:center;
+}
+
+.button {
+	float: left;
+	width:300px;
+	text-align:center;
+	margin: 0 auto;
+	position:relative;
+	left:400px;
+
+}
+
+.button input {
+    margin: 0px 10px;
+	width:250px;
+	text-align:center;
+
+}
+
+.button2 {
+	float:left;
+	width:80px;
+	position:relative;
+	left:500px;
+	bottom:40px;
+
+}
+
+.button3 {
+	float: left;
+	width:250px;
+	text-align:center;
+	margin: 20px auto;
+	position:relative;
+	left:420px;
+
+}
+
+.button3 input {
+    margin: 0px 10px;
+	width:200px;
+	text-align:center;
+
+}
+
+.buy_no {
+	position:relative;
+	left:350px;
+	top:5px;
+}
+
+.product_img {
+
+	float:left;
+	position:relative;
+	left:200px;
+}
+
+
+.buy_no select {
+	height:30px;
+	width:60px;
+}
+
+.sorryerror p  {
+text-align:center;
+
+
+}
+
+/* ↓商品検索結果テーブル  */
+.table1 {
+  border-collapse: collapse;
+  width: 500px;
+  position:relative;
+  left:420px;
+
+}
+.table1 th, .table1 td{
+  border: 0.5px solid black;
+  text-align: center;
+   text-decoration: none;
+color:black;
+}
+
+.table2 {
+  border-collapse: collapse;
+  width: 500px;
+  position:relative;
+  left:300px;
+}
+
+.table2 th, .table2 td{
+  border: 0.5px solid black;
+  text-align: center;
+  text-decoration: none;
+color:black;
+}
+
+/* ↑商品検索結果テーブル  */
+
+.button3{
+	position:relative;
+    left:280px;
+}
+
+
+.button7 {
+	position:relative;
+	left:70px;
+	bottom:45px;
+}
+
+.button10 {
+	position:relative;
+	left:900px;
+	top:35px;
+
+}
+
+input#button9 {
+	height:26px;
+	position:relative;
+    bottom:70px;
+    left:30px;
+
+
+}
+
+.button4 {
+
+		height:26px;
+	position:relative;
+	top:200px;
+	right:500px;
+}
+
+input#back {
+
+
+
+}
+
+.button11
+{
+width:100px;
+	position:relative;
+    left:820px;
+    top:5px;
+}
+
