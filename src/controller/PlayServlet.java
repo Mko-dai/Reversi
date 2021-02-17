@@ -46,10 +46,9 @@ public class PlayServlet extends HttpServlet {
 		nullSquare = new String[8][8];
 
 		/* 白と黒の行数(i)と列数(j)格納用変数 0から7が入る */
-        ArrayList<int[]> blackSquareArray64_i = new ArrayList<int[]>();
-        ArrayList<int[]> blackSquareArray64_j = new ArrayList<int[]>();
-        ArrayList<int[]> whiteSquareArray64_i = new ArrayList<int[]>();
-        ArrayList<int[]> whiteSquareArray64_j = new ArrayList<int[]>();
+        ArrayList<int[]> blackAroundSquareArray_i_j = new ArrayList<int[]>();
+        ArrayList<int[]> whiteAroundSquareArray_i_j = new ArrayList<int[]>();
+
 
         /* マス目を左上から繰り返す */
 		for (int i = 0; i<8; i++)
@@ -63,16 +62,33 @@ public class PlayServlet extends HttpServlet {
 			    	blackSquare[i][j] = "●";
 
 			    	/* 黒のマス目の周囲8マスの行数(i)と列数(j)を記録 */
-			    	int[] blackSquareArry_i = new int[3];
-					int[] blackSquareArry_j = new int[3];
-			    	blackSquareArry_i[0] = i-1;
-			    	blackSquareArry_i[1] = i;
-			    	blackSquareArry_i[2] = i+1;
-			    	blackSquareArry_j[0] = j-1;
-			    	blackSquareArry_j[1] = j;
-			    	blackSquareArry_j[2] = j+1;
-			    	blackSquareArray64_i.add(blackSquareArry_i);
-			    	blackSquareArray64_j.add(blackSquareArry_j);
+
+			    	int up_i     = i-1;
+			    	int center_i = i;
+			    	int down_i   = i+1;
+			    	int left_j   = j-1;
+			    	int center_j = j;
+			    	int right_j  = j+1;
+
+			    	int up_i_left_j[] = {up_i, left_j};
+			    	int up_i_center_j[] = {up_i, center_j};
+			    	int up_i_right_j[] = {up_i, right_j};
+
+			    	int center_i_left_j[] = {center_i, left_j};
+			    	int center_i_right_j[] = {center_i, right_j};
+
+			    	int down_i_left_j[] = {down_i, left_j};
+			    	int down_i_center_j[] = {down_i, center_j};
+			    	int down_i_right_j[] = {down_i, right_j};
+
+			    	blackAroundSquareArray_i_j.add(up_i_left_j);
+			    	blackAroundSquareArray_i_j.add(up_i_center_j);
+			    	blackAroundSquareArray_i_j.add(up_i_right_j);
+			    	blackAroundSquareArray_i_j.add(center_i_left_j);
+			    	blackAroundSquareArray_i_j.add(center_i_right_j);
+			    	blackAroundSquareArray_i_j.add(down_i_left_j);
+			    	blackAroundSquareArray_i_j.add(down_i_center_j);
+			    	blackAroundSquareArray_i_j.add(down_i_right_j);
 
 			    }
 
@@ -83,16 +99,32 @@ public class PlayServlet extends HttpServlet {
 			    	whiteSquare[i][j] = "○";
 
 			    	/* 白のマス目の周囲8マスの行数(i)と列数(j)を記録 */
-					int[] whiteSquareArry_i = new int[3];
-					int[] whiteSquareArry_j = new int[3];
-			    	whiteSquareArry_i[0] = i-1;
-			    	whiteSquareArry_i[1] = i;
-			    	whiteSquareArry_i[2] = i+1;
-			    	whiteSquareArry_j[0] = j-1;
-			    	whiteSquareArry_j[1] = j;
-			    	whiteSquareArry_j[2] = j+1;
-			    	whiteSquareArray64_i.add(whiteSquareArry_i);
-			    	whiteSquareArray64_j.add(whiteSquareArry_j);
+			    	int up_i     = i-1;
+			    	int center_i = i;
+			    	int down_i   = i+1;
+			    	int left_j   = j-1;
+			    	int center_j = j;
+			    	int right_j  = j+1;
+
+			    	int up_i_left_j[] = {up_i, left_j};
+			    	int up_i_center_j[] = {up_i, center_j};
+			    	int up_i_right_j[] = {up_i, right_j};
+
+			    	int center_i_left_j[] = {center_i, left_j};
+			    	int center_i_right_j[] = {center_i, right_j};
+
+			    	int down_i_left_j[] = {down_i, left_j};
+			    	int down_i_center_j[] = {down_i, center_j};
+			    	int down_i_right_j[] = {down_i, right_j};
+
+			    	whiteAroundSquareArray_i_j.add(up_i_left_j);
+			    	whiteAroundSquareArray_i_j.add(up_i_center_j);
+			    	whiteAroundSquareArray_i_j.add(up_i_right_j);
+			    	whiteAroundSquareArray_i_j.add(center_i_left_j);
+			    	whiteAroundSquareArray_i_j.add(center_i_right_j);
+			    	whiteAroundSquareArray_i_j.add(down_i_left_j);
+			    	whiteAroundSquareArray_i_j.add(down_i_center_j);
+			    	whiteAroundSquareArray_i_j.add(down_i_right_j);
 
 			    }
 
@@ -109,32 +141,18 @@ public class PlayServlet extends HttpServlet {
         /* 白の周囲の無色マスの行数(k)と列数(l)を格納する変数 */
 		ArrayList<int[]> emptyArroundWhiteList = new ArrayList<int[]>();
 
-        /* 白の周囲のマスの行数配列(i)の要素をk、列数配列(j)の要素をlに代入して取り出す */
-		for (int[] i:whiteSquareArray64_i)
+		for (int[] i:whiteAroundSquareArray_i_j)
 		{
-			for (int[] j:whiteSquareArray64_j)
+			if (i[0]>= 0 && i[0]<8 && i[1]>= 0 && i[1]<8)
 			{
-				for (int k:i)
+				/* 白の周囲の無色マスの行数(k)と列数(l)を格納 */
+				if(nullSquare[i[0]][i[1]] == "empty")
 				{
-					for (int l:j)
-					{
-						if (k>= 0 && k<8 && l>= 0 && l<8)
-						{
-							/* 白の周囲の無色マスの行数(k)と列数(l)を格納 */
-							if(nullSquare[k][l] == "empty")
-							{
-								int[] emptyNum = new int[2];
-								emptyNum[0] = k;
-								emptyNum[1] = l;
-								emptyArroundWhiteList.add(emptyNum);
-							}
-						}
-					}
+					emptyArroundWhiteList.add(i);
 				}
 			}
+
 		}
-
-
 
 
 
