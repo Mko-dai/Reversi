@@ -27,13 +27,7 @@
     <tr>
     <c:forEach begin="0" end="7" varStatus="j">
       <td width="60px" height="60px">
-        <c:if test="${square[i.index][j.index] == ' '}" var="result" >
-
-        </c:if>
-
-        <c:if test="${result == false}">
-          <font size="6">${square[i.index][j.index]}</font>
-        </c:if>
+          <font size="6">${blackSquare[i.index][j.index]}${whiteSquare[i.index][j.index]}</font>
       </td>
     </c:forEach>
     </tr>
