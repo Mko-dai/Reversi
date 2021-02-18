@@ -154,6 +154,79 @@ public class PlayServlet extends HttpServlet {
 
 		}
 
+		ArrayList<ArrayList<ArrayList<int[]>>> xyzAroundWhiteList = new ArrayList<ArrayList<ArrayList<int[]>>>(); /* 列数 */
+
+		for (int[] i:emptyArroundWhiteList)
+		{
+			ArrayList<int[]> xArroundWhiteList = new ArrayList<int[]>(); /* 列数 */
+			ArrayList<int[]> yArroundWhiteList = new ArrayList<int[]>(); /* 行数 */
+			ArrayList<int[]> zDownArroundWhiteList = new ArrayList<int[]>(); /* 斜め\ */
+			ArrayList<int[]> zUpArroundWhiteList = new ArrayList<int[]>(); /* 斜め/ */
+
+			int y = i[0];
+			int x = i[1];
+
+			for (int j=1; j<8; j++)
+			{
+			    if (x+j < 8)
+			    {
+				    int yAround[] = {y,x+j};
+			        yArroundWhiteList.add(yAround);
+			    }
+
+			    if (x-j >= 0)
+			    {
+				    int yAround[] = {y,x-j};
+			        yArroundWhiteList.add(yAround);
+			    }
+
+
+			    if (y+j < 8)
+			    {
+			        int xAround[] = {y+j, x};
+			        xArroundWhiteList.add(xAround);
+			    }
+
+			    if (y-j >= 0)
+			    {
+			        int xAround[] = {y-j, x};
+			        xArroundWhiteList.add(xAround);
+			    }
+
+
+			    if (y+j < 8 && x+j < 8 )
+			    {
+		     	    int zDownAroundRight[] = {y+j, x+j};
+			       	zDownArroundWhiteList.add(zDownAroundRight);
+			    }
+
+			    if (y-j >= 0 && x-j >= 0)
+			    {
+			       	int zDownAroundLeft[] = {y-j, x-j};
+		        	zDownArroundWhiteList.add(zDownAroundLeft);
+		        }
+
+		    	if (y-j >= 0 && x+j < 8)
+		    	{
+		    		int zUpAroundRight[] = {y-j, x+j};
+		    		zUpArroundWhiteList.add(zUpAroundRight);
+		    	}
+
+		    	if (y+j < 8 && x-j >= 0)
+		    	{
+		    		int zUpAroundLeft[] = {y+j, x-j};
+		    		zUpArroundWhiteList.add(zUpAroundLeft);
+		    	}
+
+			    ArrayList<ArrayList<int[]>> xyzArround = new ArrayList<ArrayList<int[]>>();
+			    xyzArround.add(xArroundWhiteList);
+			    xyzArround.add(yArroundWhiteList);
+			    xyzArround.add(zDownArroundWhiteList);
+			    xyzArround.add(zUpArroundWhiteList);
+
+			    xyzAroundWhiteList.add(xyzArround);
+			}
+		}
 
 
 		String color = "black";
