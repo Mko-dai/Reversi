@@ -320,6 +320,8 @@ public class PlayServlet extends HttpServlet {
 			canPutSquare.add(xy);
 		}
 
+
+
 		String color = "black";
 		session.setAttribute("changeSquareList2", changeSquareList2);  /* 黒に変えられる白のマス */
 		session.setAttribute("canPutSquare", canPutSquare);          /* 黒をおける無色のマス */

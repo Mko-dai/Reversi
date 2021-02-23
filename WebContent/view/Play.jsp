@@ -25,21 +25,43 @@
   <c:forEach begin="0" end="7" varStatus="i">
     <tr>
     <c:forEach begin="0" end="7" varStatus="j">
-      <td width="60px" height="60px">
 
           <c:if test="${blackSquare[i.index][j.index] == '●'}">
-              <font size="6">${blackSquare[i.index][j.index]}</font>
+
+              <c:set var="blackchange" value="false"></c:set>
+              <c:forEach var = "changelist" items="${changeSquareList2}">
+                      <c:if test = "${changelist[0] == i.index && changelist[1] == j.index}" var="result1">
+                        <td class="blackToWhiteChange" width="60px" height="60px">${blackSquare[i.index][j.index]}</td>
+                        <c:set var="blackchange" value="true"></c:set>
+                      </c:if>
+              </c:forEach>
+                      <c:if test="${blackchange == false}" >
+                        <td class="noneChange" width="60px" height="60px">${blackSquare[i.index][j.index]}</td>
+                      </c:if>
+
+
           </c:if>
 
           <c:if test="${whiteSquare[i.index][j.index] == '○'}">
-              <font size="6">${whiteSquare[i.index][j.index]}</font>
+
+              <c:set var="whitechange" value="false"></c:set>
+              <c:forEach var = "changelist" items="${changeSquareList2}">
+                    <c:if test = "${changelist[0] == i.index && changelist[1] == j.index}" var="result2">
+                      <td class="whiteToBlackChange" width="60px" height="60px">${whiteSquare[i.index][j.index]}</td>
+                      <c:set var="whitechange" value="true"></c:set>
+                    </c:if>
+              </c:forEach>
+                    <c:if test="${whitechange == false}" >
+                      <td class="noneChange" width="60px" height="60px">${whiteSquare[i.index][j.index]}</td>
+                    </c:if>
           </c:if>
 
-          <c:if test="${nullSquare[i.index][j.index] == 'empty'}}">
-              <font size="6">${nullSquare[i.index][j.index]}</font>
+
+          <c:if test="${nullSquare[i.index][j.index] == 'empty'}" var="result3">
+              <td width="60px" height="60px"></td>
           </c:if>
 
-      </td>
+
     </c:forEach>
     </tr>
   </c:forEach>
