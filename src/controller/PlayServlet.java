@@ -261,7 +261,24 @@ public class PlayServlet extends HttpServlet {
 					{
 						int[] changeWhiteToBlack = {k[0], k[1]};
 
-						changWhiteToBlackList.add(changeWhiteToBlack);
+						boolean flag = true;
+
+						for (ArrayList<int[]> n:changeSquareList)
+						{
+										for (int[] l:n)
+										{
+											if (l[0] == k[0] && l[1] == k[1])
+											{
+                          flag = false;
+											}
+										}
+						}
+
+
+						if (flag == true)
+						{
+							changWhiteToBlackList.add(changeWhiteToBlack);
+						}
 
 						whitecount ++;
 					}
@@ -281,34 +298,18 @@ public class PlayServlet extends HttpServlet {
 			num++;
 		}
 
-		/* changeSquareListの重複を削除(途中) */
-		int countn = 1;
-		int countm = 1;
-		int countj = 1;
-		for (ArrayList<int[]> n:changeSquareList)
-		{
-			for(int[] m:n)
-			{
-				for(int[] j:n)
-				{
-					if (countj != countm && j[0] == m[0] && j[1] == m[1])
-					{
-						changeSquareList.get(countn).remove(countm);
-					}
-
-					countj++;
-				}
-				countm++;
-			}
-			countn++;
-		}
-
-
+		ArrayList<int[]> changeSquareList2 = new ArrayList<int[]>();
 		for (ArrayList<int[]> n:changeSquareList)
 		{
             for (int[] k:n)
             {
-            	System.out.println(k[0] + "," + k[1]);
+            	int y = k[0];
+							int x = k[1];
+
+							int[] xy = {y, x};
+							changeSquareList2.add(xy);
+
+
             }
 		}
 
@@ -320,9 +321,9 @@ public class PlayServlet extends HttpServlet {
 		}
 
 		String color = "black";
-		session.setAttribute("changeSquareList", changeSquareList);  /* 黒に変えられる白のマス */
+		session.setAttribute("changeSquareList2", changeSquareList2);  /* 黒に変えられる白のマス */
 		session.setAttribute("canPutSquare", canPutSquare);          /* 黒をおける無色のマス */
-        session.setAttribute("color", color);                        /* 次の色が黒 */
+		session.setAttribute("color", color);                        /* 次の色が黒 */
 		session.setAttribute("blackSquare",blackSquare);             /* 黒のマス */
 		session.setAttribute("whiteSquare",whiteSquare);             /* 白のマス */
 		session.setAttribute("nullSquare",nullSquare);               /* 無色のマス */
