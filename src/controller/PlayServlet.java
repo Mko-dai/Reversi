@@ -154,14 +154,20 @@ public class PlayServlet extends HttpServlet {
 
 		}
 
+		/* 白の周囲の空白の縦・横・斜めを格納する変数 */
 		ArrayList<ArrayList<ArrayList<int[]>>> xyzAroundWhiteList = new ArrayList<ArrayList<ArrayList<int[]>>>(); /* 列数 */
 
 		for (int[] i:emptyArroundWhiteList)
 		{
-			ArrayList<int[]> xArroundWhiteList = new ArrayList<int[]>(); /* 列数 */
-			ArrayList<int[]> yArroundWhiteList = new ArrayList<int[]>(); /* 行数 */
-			ArrayList<int[]> zDownArroundWhiteList = new ArrayList<int[]>(); /* 斜め\ */
-			ArrayList<int[]> zUpArroundWhiteList = new ArrayList<int[]>(); /* 斜め/ */
+			ArrayList<int[]> xArrounddownWhiteList = new ArrayList<int[]>(); /* 列数 */
+			ArrayList<int[]> xArroundupWhiteList = new ArrayList<int[]>(); /* 列数 */
+			ArrayList<int[]> yArroundRightWhiteList = new ArrayList<int[]>(); /* 行数 */
+			ArrayList<int[]> yArroundLeftWhiteList = new ArrayList<int[]>(); /* 行数 */
+			ArrayList<int[]> zDownArroundrightWhiteList = new ArrayList<int[]>(); /* 斜め\ */
+			ArrayList<int[]> zDownArroundleftWhiteList = new ArrayList<int[]>(); /* 斜め\ */
+			ArrayList<int[]> zUpArroundrightWhiteList = new ArrayList<int[]>(); /* 斜め/ */
+			ArrayList<int[]> zUpArroundleftWhiteList = new ArrayList<int[]>(); /* 斜め/ */
+
 
 			int y = i[0];
 			int x = i[1];
@@ -171,69 +177,123 @@ public class PlayServlet extends HttpServlet {
 			    if (x+j < 8)
 			    {
 				    int yAround[] = {y,x+j};
-			        yArroundWhiteList.add(yAround);
+			        yArroundRightWhiteList.add(yAround);
 			    }
 
 			    if (x-j >= 0)
 			    {
 				    int yAround[] = {y,x-j};
-			        yArroundWhiteList.add(yAround);
+			        yArroundLeftWhiteList.add(yAround);
 			    }
-
 
 			    if (y+j < 8)
 			    {
 			        int xAround[] = {y+j, x};
-			        xArroundWhiteList.add(xAround);
+			        xArrounddownWhiteList.add(xAround);
 			    }
 
 			    if (y-j >= 0)
 			    {
 			        int xAround[] = {y-j, x};
-			        xArroundWhiteList.add(xAround);
+			        xArroundupWhiteList.add(xAround);
 			    }
-
 
 			    if (y+j < 8 && x+j < 8 )
 			    {
 		     	    int zDownAroundRight[] = {y+j, x+j};
-			       	zDownArroundWhiteList.add(zDownAroundRight);
+			       	zDownArroundrightWhiteList.add(zDownAroundRight);
 			    }
 
 			    if (y-j >= 0 && x-j >= 0)
 			    {
 			       	int zDownAroundLeft[] = {y-j, x-j};
-		        	zDownArroundWhiteList.add(zDownAroundLeft);
+		        	zDownArroundleftWhiteList.add(zDownAroundLeft);
 		        }
 
 		    	if (y-j >= 0 && x+j < 8)
 		    	{
 		    		int zUpAroundRight[] = {y-j, x+j};
-		    		zUpArroundWhiteList.add(zUpAroundRight);
+		    		zUpArroundrightWhiteList.add(zUpAroundRight);
 		    	}
 
 		    	if (y+j < 8 && x-j >= 0)
 		    	{
 		    		int zUpAroundLeft[] = {y+j, x-j};
-		    		zUpArroundWhiteList.add(zUpAroundLeft);
+		    		zUpArroundleftWhiteList.add(zUpAroundLeft);
 		    	}
 
+			}
 			    ArrayList<ArrayList<int[]>> xyzArround = new ArrayList<ArrayList<int[]>>();
-			    xyzArround.add(xArroundWhiteList);
-			    xyzArround.add(yArroundWhiteList);
-			    xyzArround.add(zDownArroundWhiteList);
-			    xyzArround.add(zUpArroundWhiteList);
+			    xyzArround.add(xArrounddownWhiteList);
+			    xyzArround.add(xArroundupWhiteList);
+			    xyzArround.add(yArroundRightWhiteList);
+			    xyzArround.add(yArroundLeftWhiteList);
+			    xyzArround.add(zDownArroundrightWhiteList);
+			    xyzArround.add(zDownArroundleftWhiteList);
+			    xyzArround.add(zUpArroundrightWhiteList);
+			    xyzArround.add(zUpArroundleftWhiteList);
 
 			    xyzAroundWhiteList.add(xyzArround);
-			}
+
 		}
 
+		ArrayList<ArrayList<int[]>> changeSquareList = new ArrayList<ArrayList<int[]>>(); /* 白から黒に変えられるマス */
+		ArrayList<int[]> canPutSquare = new ArrayList<int[]>();    /* 黒をおけるマス */
+		int num=0;
+		ArrayList<Integer> numlist = new ArrayList<Integer>();
+		for (ArrayList<ArrayList<int[]>> i:xyzAroundWhiteList)
+		{
+			for (ArrayList<int[]> j:i)
+			{
+				int count = 0;
+				int whitecount = 0;
+				ArrayList<int[]> changWhiteToBlackList = new ArrayList<int[]>();
+
+				for (int[] k:j)
+				{
+
+					if ((count==0 && blackSquare[k[0]][k[1]] == "●") || nullSquare[k[0]][k[1]] == "empty")
+					{
+						continue;
+					}
+
+					if (whiteSquare[k[0]][k[1]] == "○")
+					{
+						int[] changeWhiteToBlack = {k[0], k[1]};
+
+						changWhiteToBlackList.add(changeWhiteToBlack);
+
+						whitecount ++;
+					}
+
+					if (count >0 && blackSquare[k[0]][k[1]] == "●" && whitecount > 0)
+					{
+
+						changeSquareList.add(changWhiteToBlackList);
+
+						numlist.add(num);
+						continue;
+					}
+
+					count++;
+			    }
+			}
+			num++;
+		}
+
+		for (int i:numlist)
+		{
+			int[] xy = emptyArroundWhiteList.get(i);
+			canPutSquare.add(xy);
+		}
 
 		String color = "black";
-        session.setAttribute("color", color);
-		session.setAttribute("blackSquare",blackSquare);
-		session.setAttribute("whiteSquare",whiteSquare);
-		session.setAttribute("nullSquare",nullSquare);
+		session.setAttribute("changeSquareList", changeSquareList);  /* 黒に変えられる白のマス */
+		session.setAttribute("canPutSquare", canPutSquare);          /* 黒をおける無色のマス */
+        session.setAttribute("color", color);                        /* 次の色が黒 */
+		session.setAttribute("blackSquare",blackSquare);             /* 黒のマス */
+		session.setAttribute("whiteSquare",whiteSquare);             /* 白のマス */
+		session.setAttribute("nullSquare",nullSquare);               /* 無色のマス */
 
 		RequestDispatcher rd = request.getRequestDispatcher("/view/Play.jsp");
 	    rd.forward(request, response);
