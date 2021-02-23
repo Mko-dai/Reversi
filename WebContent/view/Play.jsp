@@ -58,7 +58,17 @@
 
 
           <c:if test="${nullSquare[i.index][j.index] == 'empty'}" var="result3">
-              <td width="60px" height="60px"></td>
+
+              <c:set var="nullCanPut" value="false"></c:set>
+              <c:forEach var = "canPutSquare" items="${canPutSquareList}">
+                    <c:if test = "${canPutSquare[0] == i.index && canPutSquare[1] == j.index}" var="result3">
+                      <td class="canPutSquare" id="(${i.index},${j.index})" width="60px" height="60px"><font size="6"><a href="">　</a></font></td>
+                      <c:set var="nullCanPut" value="true"></c:set>
+                    </c:if>
+              </c:forEach>
+                    <c:if test="${nullCanPut == false}" >
+                      <td class="noneChange" width="60px" height="60px"><font size="6"></font></td>
+                    </c:if>
           </c:if>
 
 

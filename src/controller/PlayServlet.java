@@ -238,7 +238,7 @@ public class PlayServlet extends HttpServlet {
 		}
 
 		ArrayList<ArrayList<int[]>> changeSquareList = new ArrayList<ArrayList<int[]>>(); /* 白から黒に変えられるマス */
-		ArrayList<int[]> canPutSquare = new ArrayList<int[]>();    /* 黒をおけるマス */
+		ArrayList<int[]> canPutSquareList = new ArrayList<int[]>();    /* 黒をおけるマス */
 		int num=0;
 		ArrayList<Integer> numlist = new ArrayList<Integer>();
 		for (ArrayList<ArrayList<int[]>> i:xyzAroundWhiteList)
@@ -317,14 +317,14 @@ public class PlayServlet extends HttpServlet {
 		for (int i:numlist)
 		{
 			int[] xy = emptyArroundWhiteList.get(i);
-			canPutSquare.add(xy);
+			canPutSquareList.add(xy);
 		}
 
 
 
 		String color = "black";
 		session.setAttribute("changeSquareList2", changeSquareList2);  /* 黒に変えられる白のマス */
-		session.setAttribute("canPutSquare", canPutSquare);          /* 黒をおける無色のマス */
+		session.setAttribute("canPutSquareList", canPutSquareList);          /* 黒をおける無色のマス */
 		session.setAttribute("color", color);                        /* 次の色が黒 */
 		session.setAttribute("blackSquare",blackSquare);             /* 黒のマス */
 		session.setAttribute("whiteSquare",whiteSquare);             /* 白のマス */
