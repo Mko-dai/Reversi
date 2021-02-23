@@ -31,12 +31,12 @@
               <c:set var="blackchange" value="false"></c:set>
               <c:forEach var = "changelist" items="${changeSquareList2}">
                       <c:if test = "${changelist[0] == i.index && changelist[1] == j.index}" var="result1">
-                        <td class="blackToWhiteChange" id="(${i.index},${j.index})" width="60px" height="60px">${blackSquare[i.index][j.index]}</td>
+                        <td class="blackToWhiteChange" id="(${i.index},${j.index})" width="60px" height="60px"><font size="6">${blackSquare[i.index][j.index]}</font></td>
                         <c:set var="blackchange" value="true"></c:set>
                       </c:if>
               </c:forEach>
                       <c:if test="${blackchange == false}" >
-                        <td class="noneChange" width="60px" height="60px">${blackSquare[i.index][j.index]}</td>
+                        <td class="noneChange" width="60px" height="60px"><font size="6">${blackSquare[i.index][j.index]}</font></td>
                       </c:if>
 
 
@@ -47,12 +47,12 @@
               <c:set var="whitechange" value="false"></c:set>
               <c:forEach var = "changelist" items="${changeSquareList2}">
                     <c:if test = "${changelist[0] == i.index && changelist[1] == j.index}" var="result2">
-                      <td class="whiteToBlackChange" id="(${i.index},${j.index})" width="60px" height="60px">${whiteSquare[i.index][j.index]}</td>
+                      <td class="whiteToBlackChange" id="(${i.index},${j.index})" width="60px" height="60px"><font size="6">${whiteSquare[i.index][j.index]}</font></td>
                       <c:set var="whitechange" value="true"></c:set>
                     </c:if>
               </c:forEach>
                     <c:if test="${whitechange == false}" >
-                      <td class="noneChange" width="60px" height="60px">${whiteSquare[i.index][j.index]}</td>
+                      <td class="noneChange" width="60px" height="60px"><font size="6">${whiteSquare[i.index][j.index]}</font></td>
                     </c:if>
           </c:if>
 
