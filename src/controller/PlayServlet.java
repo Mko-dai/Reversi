@@ -281,6 +281,38 @@ public class PlayServlet extends HttpServlet {
 			num++;
 		}
 
+		/* changeSquareListの重複を削除(途中) */
+		int countn = 1;
+		int countm = 1;
+		int countj = 1;
+		for (ArrayList<int[]> n:changeSquareList)
+		{
+			for(int[] m:n)
+			{
+				for(int[] j:n)
+				{
+					if (countj != countm && j[0] == m[0] && j[1] == m[1])
+					{
+						changeSquareList.get(countn).remove(countm);
+					}
+
+					countj++;
+				}
+				countm++;
+			}
+			countn++;
+		}
+
+
+		for (ArrayList<int[]> n:changeSquareList)
+		{
+            for (int[] k:n)
+            {
+            	System.out.println(k[0] + "," + k[1]);
+            }
+		}
+
+
 		for (int i:numlist)
 		{
 			int[] xy = emptyArroundWhiteList.get(i);

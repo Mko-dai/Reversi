@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="css/view.css">
 </head>
 <body>
+<c:set var="changeSquareList" value="${changeSquareList}"></c:set>
+<c:set var="canPutSquare" value="${canPutSquare}"></c:set>
 <h1>オセロ</h1>
 <p>
 
@@ -26,7 +28,19 @@
     <tr>
     <c:forEach begin="0" end="7" varStatus="j">
       <td width="60px" height="60px">
-          <font size="6">${blackSquare[i.index][j.index]}${whiteSquare[i.index][j.index]}</font>
+          <%-- <font size="6">${blackSquare[i.index][j.index]}${whiteSquare[i.index][j.index]}</font> --%>
+
+          <c:if test="${blackSquare[i.index][j.index] == '●'}">
+              <font size="6">${blackSquare[i.index][j.index]}</font>
+          </c:if>
+
+          <c:if test="${whiteSquare[i.index][j.index] == '○'}">
+          <font size="6">${whiteSquare[i.index][j.index]}</font>
+          </c:if>
+
+          <c:if test="${nullSquare[i.index][j.index] == 'empty'}}">
+          <font size="6">${nullSquare[i.index][j.index]}</font>
+          </c:if>
       </td>
     </c:forEach>
     </tr>
