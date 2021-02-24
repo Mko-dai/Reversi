@@ -38,4 +38,14 @@
     <servlet-name>example</servlet-name>
     <url-pattern>/example</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PutAndChangeServlet</display-name>
+    <servlet-name>PutAndChangeServlet</servlet-name>
+    <servlet-class>controller.PutAndChangeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PutAndChangeServlet</servlet-name>
+    <url-pattern>/PutAndChangeServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

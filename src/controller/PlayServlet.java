@@ -85,18 +85,7 @@ public class PlayServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession(false);
 
-		String color = (String) session.getAttribute("color");
-
-		if (color == "black")
-		{
-			session.setAttribute("color", "white");
-		}
-		else if (color == "white")
-		{
-			session.setAttribute("color", "black");
-		}
 
 
 
