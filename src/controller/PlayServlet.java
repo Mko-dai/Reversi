@@ -33,17 +33,9 @@ public class PlayServlet extends HttpServlet {
 		/*セッション開始 */
 		HttpSession session = request.getSession(true);
 
-        /* 黒のマス目(記号)格納用変数 */
-		String blackSquare[][];
-		blackSquare = new String[8][8];
-
-		/* 白のマス目(記号)格納用変数 */
-		String whiteSquare[][];
-		whiteSquare = new String[8][8];
-
-		/* 無色のマス目(empty)格納用変数 */
-		String[][] nullSquare;
-		nullSquare = new String[8][8];
+        /* マス目(記号)格納用変数 */
+		String SquareColor[][];
+		SquareColor = new String[8][8];
 
 		/* 白と黒の行数(i)と列数(j)格納用変数 0から7が入る */
         ArrayList<int[]> blackAroundSquareArray_i_j = new ArrayList<int[]>();
@@ -59,7 +51,7 @@ public class PlayServlet extends HttpServlet {
 			    if ((i == 3 && j == 3) || (i == 4 && j == 4))
 			    {
                     /* 黒の記号を入れてjspへ飛ばす */
-			    	blackSquare[i][j] = "●";
+			    	SquareColor[i][j] = "●";
 
 			    	/* 黒のマス目の周囲8マスの行数(i)と列数(j)を記録 */
 
@@ -96,7 +88,7 @@ public class PlayServlet extends HttpServlet {
 			    else if ((i == 4 && j == 3) || (i == 3 && j == 4))
 			    {
 			    	/* 白の記号を入れてjspへ飛ばす */
-			    	whiteSquare[i][j] = "○";
+			    	SquareColor[i][j] = "○";
 
 			    	/* 白のマス目の周囲8マスの行数(i)と列数(j)を記録 */
 			    	int up_i     = i-1;
@@ -132,7 +124,7 @@ public class PlayServlet extends HttpServlet {
 			    else
 			    {
 			    	/* 無色のマス目に文字列emptyを格納 */
-			    	nullSquare[i][j] = "empty";
+			    	SquareColor[i][j] = "empty";
 			    }
 
 			}
@@ -146,7 +138,7 @@ public class PlayServlet extends HttpServlet {
 			if (i[0]>= 0 && i[0]<8 && i[1]>= 0 && i[1]<8)
 			{
 				/* 白の周囲の無色マスの行数(k)と列数(l)を格納 */
-				if(nullSquare[i[0]][i[1]] == "empty")
+				if(SquareColor[i[0]][i[1]] == "empty")
 				{
 					emptyArroundWhiteList.add(i);
 				}
@@ -252,12 +244,12 @@ public class PlayServlet extends HttpServlet {
 				for (int[] k:j)
 				{
 
-					if ((count==0 && blackSquare[k[0]][k[1]] == "●") || nullSquare[k[0]][k[1]] == "empty")
+					if ((count==0 && SquareColor[k[0]][k[1]] == "●") || SquareColor[k[0]][k[1]] == "empty")
 					{
 						continue;
 					}
 
-					if (whiteSquare[k[0]][k[1]] == "○")
+					if (SquareColor[k[0]][k[1]] == "○")
 					{
 						int[] changeWhiteToBlack = {k[0], k[1]};
 
@@ -283,7 +275,7 @@ public class PlayServlet extends HttpServlet {
 						whitecount ++;
 					}
 
-					if (count >0 && blackSquare[k[0]][k[1]] == "●" && whitecount > 0)
+					if (count >0 && SquareColor[k[0]][k[1]] == "●" && whitecount > 0)
 					{
 
 						changeSquareList.add(changWhiteToBlackList);
@@ -326,9 +318,7 @@ public class PlayServlet extends HttpServlet {
 		session.setAttribute("changeSquareList2", changeSquareList2);  /* 黒に変えられる白のマス */
 		session.setAttribute("canPutSquareList", canPutSquareList);          /* 黒をおける無色のマス */
 		session.setAttribute("color", color);                        /* 次の色が黒 */
-		session.setAttribute("blackSquare",blackSquare);             /* 黒のマス */
-		session.setAttribute("whiteSquare",whiteSquare);             /* 白のマス */
-		session.setAttribute("nullSquare",nullSquare);               /* 無色のマス */
+		session.setAttribute("SquareColor",SquareColor);
 
 		RequestDispatcher rd = request.getRequestDispatcher("/view/Play.jsp");
 	    rd.forward(request, response);
@@ -339,21 +329,6 @@ public class PlayServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession(false);
-
-		String color = (String) session.getAttribute("color");
-
-		if (color == "black")
-		{
-			session.setAttribute("color", "white");
-		}
-		else if (color == "white")
-		{
-			session.setAttribute("color", "black");
-		}
-
-
-
 
 	}
 
